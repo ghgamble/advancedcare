@@ -1,0 +1,189 @@
+footer {
+    background-color: #282b35;
+    color: #fff;
+    padding: 30px 0;
+  
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1100px; /* Set max-width to 1000px */
+      margin: 0 auto;
+    }
+  
+    .footer-logo-social {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%; /* Ensure it takes up full width */
+    }
+  
+    .footer-logo {
+      margin-right: 20px; /* Adjusted margin for spacing */
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+  
+    .footer-social {
+      display: flex;
+      justify-content: flex-end; /* Align social icons to the right */
+      gap: 15px; /* Adjusted gap for proper spacing */
+      align-items: center; /* Vertically center the icons */
+      max-width: 250px; /* Set a max width for social icons to prevent stretching */
+      margin-right: 12vw;
+    }
+  
+    .footer-social a {
+      color: #fff;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      padding: 5px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .footer-social .fab {
+      font-size: 2.25rem;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        color: #cccccc;
+      }
+    }
+  
+    .footer-info {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+  
+      .footer-address,
+      .footer-menu {
+        width: 48%;  /* Adjusted width for better balance */
+      }
+  
+      .footer-address {
+        h4 {
+          font-weight: bold;
+          margin-bottom: 10px;
+          font-size: 1.2rem;
+        }
+  
+        p {
+          font-size: 1rem;
+          margin: 0;
+        }
+      }
+  
+      .footer-menu {
+        h4 {
+          font-weight: bold;
+          margin-bottom: 10px;
+          font-size: 1.2rem;
+        }
+  
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-wrap: wrap;
+          li {
+            margin-bottom: 5px;
+            width: 50%;
+          }
+          a {
+            color: #fff;
+            text-decoration: underline;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            &:hover {
+              color: #cccccc;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    footer {
+      padding: 20px;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start; /* Align items to the left */
+    }
+
+    /* Stack sections vertically */
+    .footer-logo-social,
+    .footer-info {
+      width: 100%; /* Take full width */
+      margin-top: 20px; /* Equal margin top for each section */
+    }
+
+    /* First child will not have extra margin top */
+    .footer-inner > .footer-logo-social:first-child {
+      margin-top: 0;
+    }
+
+    /* Last child will not have extra margin bottom */
+    .footer-inner > .footer-info:last-child {
+      margin-bottom: 0;
+    }
+
+    .footer-logo-social {
+      justify-content: flex-start; /* Align logo to the left */
+      align-items: start !important;
+      margin-top: 10px !important;
+    }
+
+    .footer-social {
+      justify-content: flex-start; /* Align social icons to the left */
+      gap: 15px; /* Adjust gap for mobile view */
+      margin-top: 10px;
+    }
+
+    .footer-info {
+      margin-top: 0; /* Equal spacing between info section */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Align info to the left */
+    }
+
+    .footer-info .footer-address,
+    .footer-info .footer-menu {
+      width: 100%; /* Take full width */
+      margin-bottom: 10px; /* Space between each section */
+    }
+
+    /* Ensure that the first child doesn't get extra margin */
+    .footer-info .footer-address:first-child,
+    .footer-info .footer-menu:first-child {
+      margin-top: 0;
+    }
+
+    /* Stack social icons under the logo */
+    .footer-logo-social {
+      flex-direction: column; /* Stack vertically */
+      align-items: flex-start; /* Align to the left */
+    }
+
+    /* Collapse the footer menu into one column */
+    .footer-info .footer-menu ul {
+      display: flex;
+      flex-direction: column; /* Stack menu items vertically */
+    }
+  }

@@ -1,0 +1,137 @@
+// Define font variables
+$body-font-family: 'Arial', sans-serif;
+$body-font-size: 16px;
+$body-font-weight: 400;
+
+$heading-font-family: 'Arial', sans-serif;
+$heading-font-size: 32px;
+$heading-font-weight: 700;
+
+// Skip to content variables
+$skip-bg-color: #000;
+$skip-text-color: #fff;
+$skip-hover-bg-color: #444;
+
+// Apply body and heading font styles
+body {
+  margin: 0 !important;
+  font-family: $body-font-family;
+  font-size: $body-font-size;
+  font-weight: $body-font-weight;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font-family;
+  font-size: $heading-font-size;
+  font-weight: $heading-font-weight;
+}
+
+/* Skip to content styles */
+.skip-to-content {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  transform: translateX(-50%);
+  background-color: $skip-bg-color;
+  color: $skip-text-color;
+  padding: 5px 10px;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+  }
+
+  .skip-arrow svg {
+    width: 30px;
+    height: 30px;
+    stroke-width: 3;
+    transform: rotate(0deg);
+  }
+
+  &:hover {
+    background-color: $skip-hover-bg-color;
+  }
+
+  &:focus {
+    outline: 3px solid #fff;
+  }
+}
+
+body.scrolled .skip-to-content {
+  opacity: 1;
+  pointer-events: all;
+  visibility: visible;
+}
+
+// === Layout: Content Container and Gutenberg Alignment ===
+.o-container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.alignwide {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignfull {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  position: relative;
+}
+
+// Optional utility
+.u-full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.wp-block-columns.is-vertically-aligned-center {
+  align-items: center !important;
+}
+
+// Layout mobile
+.responsive-four-columns.wp-block-columns {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-four-columns.wp-block-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,162 @@
+// ✅ Mobile menu hidden by default
+.main-mobile-menu {
+  display: none;
+  background-color: #373b47;
+  padding: 20px;
+  flex-direction: column;
+  margin-top: 10px;
+
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    li {
+      width: 100%;
+      list-style-type: none;
+      
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.2rem;
+        padding: 10px 0;
+        width: 100%;
+        display: block;
+      }
+
+      // ✅ Mobile sub-menus hidden by default
+      .sub-menu {
+        padding-left: 20px;
+        display: none;
+      }
+
+      // ✅ Mobile toggled state
+      .sub-menu.open {
+        display: block;
+      }
+    }
+  }
+}
+
+// ✅ Mobile nav toggle hidden by default
+#site-navigation {
+  display: none;
+  align-items: center;
+  gap: 10px;
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    .hamburger-icon {
+      display: block;
+      width: 24px;
+      height: 18px;
+    }
+  }
+}
+
+/* ✅ MOBILE STYLES */
+@media (max-width: 768px) {
+  .site-header.menu-open {
+    padding: 20px 0 0 0;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .c-header__logo {
+    padding-left: 10px;
+    flex: 1 1 auto;
+  }
+
+  // ✅ Hide desktop nav
+  .header-nav {
+    display: none;
+  }
+
+  // ✅ Show mobile toggle
+  #site-navigation {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    flex-shrink: 0;
+  }
+
+  // ✅ Show mobile menu when toggled open
+  .main-mobile-menu.open {
+    display: flex;
+  }
+}
+
+/* ✅ DESKTOP STYLES — Desktop hover dropdowns ONLY for .header-nav */
+@media (min-width: 769px) {
+  .main-mobile-menu {
+    display: none !important; // 🔒 Keep mobile menu hidden on desktop
+  }
+
+  #site-navigation {
+    display: none; // 🔒 Hide mobile toggle on desktop
+  }
+
+  // ✅ Desktop navigation hover behavior scoped ONLY to .header-nav
+  .header-nav .menu li {
+    position: relative;
+
+    .sub-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #373b47;
+      padding: 10px;
+      border-radius: 4px;
+      min-width: 120px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      list-style-type: none;
+      margin-top: 10px;
+
+      li a {
+        white-space: nowrap;
+        display: block;
+        padding: 6px 4px;
+        color: #ffffff;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      // ✅ Desktop hover for submenu items (no change)
+      li:hover > a {
+        color: #cccccc;
+      }
+
+      // ✅ Ensure submenu is hidden by default (preserving current functionality)
+      &:hover .sub-menu {
+        display: block;
+      }
+    }
+
+    // ✅ Desktop-only hover opens sub-menu
+    &:hover > .sub-menu {
+      display: block;
+    }
+  }
+}
