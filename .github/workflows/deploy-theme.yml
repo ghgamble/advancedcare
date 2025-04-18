@@ -1,0 +1,34 @@
+name: Build and Release Theme
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Setup Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Install dependencies and build production files
+      - run: npm install
+      - run: npm run build
+
+      # Remove dev files before creating ZIP
+      - run: |
+          rm -rf node_modules assets .git .github .gitignore package.json package-lock.json webpack.config.js postcss.config.js .babelrc
+
+      # Zip the theme folder
+      - run: zip -r advancedcare.zip ./
+
+      # Automatically create GitHub Release with the ZIP
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          files: advancedcare.zip
