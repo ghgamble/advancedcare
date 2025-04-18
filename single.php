@@ -7,7 +7,9 @@
                 <h3><?php the_title(); ?></h3>
                 <div class="meta">
                     <span class="author"><?php the_author(); ?></span> |
-                    <span class="date"><?php echo get_the_date(); ?></span>
+                    <time class="date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
+                        <?php echo esc_html(get_the_date()); ?>
+                    </time>
                 </div>
             </div>
 

@@ -20,14 +20,12 @@ add_action('wp_enqueue_scripts', 'advancedcare_scripts');
 
 // Enqueue Google Fonts and apply Customizer fallbacks
 function advancedcare_enqueue_google_fonts() {
-    // Load all fonts used in theme.json so they appear in the editor dropdown
     wp_enqueue_style(
         'google-fonts',
         'https://fonts.googleapis.com/css2?family=Arial&family=Georgia&family=Helvetica&family=Times+New+Roman&family=Verdana&family=Roboto:wght@300;400;500;700&display=swap',
         false
     );
 
-    // Get Customizer font values and apply as defaults sitewide
     $body_font = get_theme_mod('advancedcare_font_family', 'Roboto, sans-serif');
     $heading_font = get_theme_mod('advancedcare_heading_font_family', 'Arial, sans-serif');
     $body_weight = get_theme_mod('advancedcare_font_weight', '400');
@@ -35,13 +33,13 @@ function advancedcare_enqueue_google_fonts() {
 
     $custom_css = "
         body, p {
-            font-family: {$body_font};
-            font-weight: {$body_weight};
+            font-family: " . esc_attr($body_font) . ";
+            font-weight: " . esc_attr($body_weight) . ";
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: {$heading_font};
-            font-weight: {$heading_weight};
+            font-family: " . esc_attr($heading_font) . ";
+            font-weight: " . esc_attr($heading_weight) . ";
         }
     ";
     wp_add_inline_style('advancedcare-style', $custom_css);
@@ -108,6 +106,7 @@ function advancedcare_register_footer_widgets() {
 }
 add_action('widgets_init', 'advancedcare_register_footer_widgets');
 
+// Allow SVG uploads for admins only
 function acb_allow_svg_uploads($mimes) {
     if (current_user_can('administrator')) {
         $mimes['svg'] = 'image/svg+xml';

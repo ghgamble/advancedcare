@@ -9,7 +9,7 @@
             } elseif (is_tag()) {
                 single_tag_title();
             } elseif (is_author()) {
-                the_author();
+                echo esc_html(get_the_author());
             } elseif (is_day()) {
                 echo get_the_date();
             } else {
@@ -31,7 +31,7 @@
                 <?php endif; ?>
 
                 <div class="meta">
-                    <span class="author"><?php the_author(); ?></span> |
+                    <span class="author"><?php echo esc_html(get_the_author()); ?></span> |
                     <span class="date"><?php echo get_the_date(); ?></span> |
                     <span class="categories"><?php the_category(', '); ?></span>
                 </div>

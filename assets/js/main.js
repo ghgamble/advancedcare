@@ -12,23 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = mobileMenu.classList.contains('open');
       mobileMenu.classList.toggle('open');
       siteHeader.classList.toggle('menu-open');
-      menuToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      menuToggle.setAttribute('aria-expanded', (!isOpen).toString());
+      mobileMenu.setAttribute('aria-hidden', isOpen.toString());
     });
   }
 
-  // ✅ Mobile sub-menu toggle ONLY
+  // Mobile sub-menu toggle ONLY
   if (window.innerWidth <= 768) {
-    document.querySelectorAll('.dropdown-arrow').forEach(arrow => {
+    document.querySelectorAll('.dropdown-arrow').forEach((arrow) => {
       arrow.addEventListener('click', (e) => {
         e.preventDefault();
         const parentLi = arrow.closest('li');
         const subMenu = parentLi.querySelector('.sub-menu');
         if (subMenu) {
+          const isOpen = subMenu.classList.contains('open');
           subMenu.classList.toggle('open');
-          const isExpanded = subMenu.classList.contains('open');
           const menuItemLink = parentLi.querySelector('a');
-          // Update aria-expanded attribute for screen readers
-          menuItemLink.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+          menuItemLink?.setAttribute('aria-expanded', (!isOpen).toString());
         }
       });
     });
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Skip to content link visibility
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) { // Show after user scrolls down 100px
+    if (window.scrollY > 100) {
       skipLink.classList.add('visible');
     } else {
       skipLink.classList.remove('visible');

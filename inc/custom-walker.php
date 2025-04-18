@@ -11,20 +11,27 @@ class AdvancedCare_Walker_Nav_Menu extends Walker_Nav_Menu {
         $classes = !empty( $item->classes ) && is_array( $item->classes ) ? implode( ' ', $item->classes ) : '';
         $has_children = in_array( 'menu-item-has-children', (array) $item->classes, true );
         
-        // Add aria-haspopup and aria-expanded attributes for items with children
+        // Begin <li>
         $output .= '<li class="' . esc_attr( $classes ) . '"';
 
-        // Add ARIA attributes for items with submenus
+        // Add ARIA for items with submenus
         if ( $has_children && $depth === 0 ) {
             $output .= ' aria-haspopup="true" aria-expanded="false"';
         }
 
         $output .= '>';
 
-        // Add link to menu item
-        $output .= '<a href="' . esc_url( $item->url ) . '" role="menuitem" aria-label="' . esc_attr( $item->title ) . '">';
+        // Begin <a>
+        $output .= '<a href="' . esc_url( $item->url ) . '" role="menuitem" aria-label="' . esc_attr( $item->title ) . '"';
 
-        // Add dropdown arrow for parent items with children (desktop and mobile)
+        // Add aria-expanded if dropdown exists (for JS toggle)
+        if ( $has_children && $depth === 0 ) {
+            $output .= ' aria-expanded="false"';
+        }
+
+        $output .= '>';
+
+        // Add dropdown arrow inline SVG if parent item
         if ( $has_children && $depth === 0 ) {
             $output .= '<span class="dropdown-arrow" aria-hidden="true">
                 <svg width="12" height="8" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg">
@@ -33,6 +40,7 @@ class AdvancedCare_Walker_Nav_Menu extends Walker_Nav_Menu {
             </span>';
         }
 
+        // Add the title text
         $output .= esc_html( $item->title );
         $output .= '</a>';
     }
