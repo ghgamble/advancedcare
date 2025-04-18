@@ -22,12 +22,28 @@ jobs:
       - run: npm install
       - run: npm run build
 
-      # Clean and move files into a release-ready folder
+      # Move all files into a subfolder named 'advancedcare'
       - name: Prepare advancedcare folder for release
         run: |
-          mkdir -p advancedcare
+          mkdir -p temp
           shopt -s dotglob
-          mv * advancedcare
+          mv * temp/
+          mkdir advancedcare
+          mv temp/* advancedcare/
+          rmdir temp
+
+      # Clean out dev files from inside advancedcare folder
+      - run: |
+          rm -rf advancedcare/node_modules \
+                 advancedcare/assets \
+                 advancedcare/.git \
+                 advancedcare/.github \
+                 advancedcare/.gitignore \
+                 advancedcare/package.json \
+                 advancedcare/package-lock.json \
+                 advancedcare/webpack.config.js \
+                 advancedcare/postcss.config.js \
+                 advancedcare/.babelrc
 
       # Extract version from style.css
       - name: Get theme version
@@ -36,10 +52,10 @@ jobs:
           VERSION=$(grep -i 'Version:' advancedcare/style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # Create ZIP that contains the top-level advancedcare folder
+      # Create a ZIP that includes the full advancedcare folder
       - run: zip -r advancedcare.zip advancedcare
 
-      # Create GitHub release with correct version tag
+      # Publish release to GitHub
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
