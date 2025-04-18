@@ -11,7 +11,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -19,27 +18,32 @@ jobs:
         with:
           node-version: '20'
 
+      # Install and build
       - run: npm install
       - run: npm run build
 
-      # ✅ Create proper advancedcare/ folder with only clean theme files
-      - name: Prepare theme folder
+      # Prepare release folder without copying itself
+      - name: Prepare release zip
         run: |
-          mkdir -p temp/advancedcare
-          rsync -av --exclude=.git --exclude=.github --exclude=node_modules --exclude=temp ./ temp/advancedcare
+          mkdir -p release/advancedcare
+          rsync -av --exclude=.git --exclude=.github --exclude=node_modules --exclude=release \
+                    --exclude=advancedcare.zip --exclude=*.log --exclude=*.DS_Store \
+                    ./ release/advancedcare
 
-      # ✅ Zip with top-level folder 'advancedcare'
-      - name: Zip theme
-        run: |
-          cd temp
-          zip -r ../advancedcare.zip advancedcare
-
-      - name: Get version from style.css
+      # Extract version from style.css
+      - name: Get theme version
         id: get_version
         run: |
-          VERSION=$(grep -i 'Version:' temp/advancedcare/style.css | awk '{ print $2 }')
+          VERSION=$(grep -i 'Version:' release/advancedcare/style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+      # Zip the theme
+      - name: Zip theme folder
+        run: |
+          cd release
+          zip -r ../advancedcare.zip advancedcare
+
+      # Create GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
