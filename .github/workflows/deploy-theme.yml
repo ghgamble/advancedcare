@@ -11,6 +11,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -21,31 +22,29 @@ jobs:
       - run: npm install
       - run: npm run build
 
-      # 💥 No more mv issues — safe copy into advancedcare/
-      - name: Prepare advancedcare folder for release
+      # Prepare the release folder with correct structure
+      - name: Prepare release zip
         run: |
-          mkdir advancedcare
-          rsync -av --exclude=advancedcare --exclude=.git --exclude=.github ./ advancedcare
+          mkdir -p release/advancedcare
+          shopt -s dotglob
+          cp -r * release/advancedcare
 
-      - run: |
-          rm -rf advancedcare/node_modules \
-                 advancedcare/assets \
-                 advancedcare/.gitignore \
-                 advancedcare/package.json \
-                 advancedcare/package-lock.json \
-                 advancedcare/webpack.config.js \
-                 advancedcare/postcss.config.js \
-                 advancedcare/.babelrc
+      # Create zip with advancedcare/ at the root
+      - name: Zip theme
+        run: |
+          cd release
+          zip -r ../advancedcare.zip advancedcare
 
+      # Extract version from style.css
       - name: Get theme version
         id: get_version
         run: |
-          VERSION=$(grep -i 'Version:' advancedcare/style.css | awk '{ print $2 }')
+          VERSION=$(grep -i 'Version:' release/advancedcare/style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - run: zip -r advancedcare.zip advancedcare
-
-      - uses: softprops/action-gh-release@v2
+      # Create GitHub Release
+      - name: Create release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
           files: advancedcare.zip
