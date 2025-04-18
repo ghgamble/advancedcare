@@ -6,13 +6,20 @@ function advancedcare_github_theme_update($transient) {
     $repo_owner = 'ghgamble';
     $repo_name  = 'advancedcare';
 
+    // Load token from config.php inside theme
+    $config_path = get_template_directory() . '/config.php';
+    $token = '';
+    if (file_exists($config_path)) {
+        $config = include $config_path;
+        $token = isset($config['github_token']) ? $config['github_token'] : '';
+    }
+
     $headers = [
         'User-Agent' => 'AdvancedCare-Updater'
     ];
 
-    // Optional: use GitHub token if defined
-    if (defined('GITHUB_TOKEN') && GITHUB_TOKEN) {
-        $headers['Authorization'] = 'token ' . GITHUB_TOKEN;
+    if (!empty($token)) {
+        $headers['Authorization'] = 'token ' . $token;
     }
 
     $response = wp_remote_get(
