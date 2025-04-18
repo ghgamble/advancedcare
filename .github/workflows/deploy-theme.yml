@@ -18,26 +18,18 @@ jobs:
         with:
           node-version: '20'
 
-      # Install and build
       - run: npm install
       - run: npm run build
 
-      # Move all files into a subfolder named 'advancedcare'
+      # 💥 No more mv issues — safe copy into advancedcare/
       - name: Prepare advancedcare folder for release
         run: |
-          mkdir -p temp
-          shopt -s dotglob
-          mv * temp/
           mkdir advancedcare
-          mv temp/* advancedcare/
-          rmdir temp
+          rsync -av --exclude=advancedcare --exclude=.git --exclude=.github ./ advancedcare
 
-      # Clean out dev files from inside advancedcare folder
       - run: |
           rm -rf advancedcare/node_modules \
                  advancedcare/assets \
-                 advancedcare/.git \
-                 advancedcare/.github \
                  advancedcare/.gitignore \
                  advancedcare/package.json \
                  advancedcare/package-lock.json \
@@ -45,17 +37,14 @@ jobs:
                  advancedcare/postcss.config.js \
                  advancedcare/.babelrc
 
-      # Extract version from style.css
       - name: Get theme version
         id: get_version
         run: |
           VERSION=$(grep -i 'Version:' advancedcare/style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # Create a ZIP that includes the full advancedcare folder
       - run: zip -r advancedcare.zip advancedcare
 
-      # Publish release to GitHub
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
