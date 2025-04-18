@@ -74,6 +74,7 @@ add_filter('block_categories_all', 'advancedcare_register_block_category', 10, 2
 // Include theme components
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/custom-walker.php';
+require get_template_directory() . '/inc/github-updater.php';
 
 // Register Footer Widgets
 function advancedcare_register_footer_widgets() {
