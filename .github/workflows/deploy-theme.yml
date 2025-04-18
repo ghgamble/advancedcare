@@ -18,15 +18,26 @@ jobs:
         with:
           node-version: '20'
 
+      # Install and build
       - run: npm install
       - run: npm run build
 
+      # Clean out dev files
       - run: |
           rm -rf node_modules assets .git .github .gitignore package.json package-lock.json webpack.config.js postcss.config.js .babelrc
 
+      # Extract version from style.css
+      - name: Get theme version
+        id: get_version
+        run: |
+          VERSION=$(grep -i 'Version:' style.css | awk '{ print $2 }')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      # Create ZIP
       - run: zip -r advancedcare.zip ./
 
+      # Create GitHub release with correct version tag
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ github.run_number }}
+          tag_name: v${{ steps.get_version.outputs.version }}
           files: advancedcare.zip

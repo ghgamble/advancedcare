@@ -6,6 +6,14 @@ function advancedcare_github_theme_update($transient) {
     $repo_owner = 'ghgamble';
     $repo_name = 'advancedcare';
 
+    // Ensure transient has structure
+    if (!is_object($transient)) return $transient;
+
+    // Set current version in transient to let WP know we checked
+    $theme = wp_get_theme($theme_slug);
+    $transient->checked[$theme_slug] = $theme->get('Version');
+
+    // Fetch latest release info from GitHub
     $response = wp_remote_get("https://api.github.com/repos/$repo_owner/$repo_name/releases/latest");
     if (is_wp_error($response)) return $transient;
 
@@ -13,30 +21,34 @@ function advancedcare_github_theme_update($transient) {
     if (empty($release) || empty($release->tag_name)) return $transient;
 
     $new_version = str_replace('v', '', $release->tag_name);
-
-    $theme = wp_get_theme($theme_slug);
     $current_version = $theme->get('Version');
+
+    // Optional debug logging (commented out)
+    // error_log("Current: $current_version | GitHub: $new_version");
 
     if (version_compare($current_version, $new_version, '<')) {
         $transient->response[$theme_slug] = [
+            'theme'       => $theme_slug,
             'new_version' => $new_version,
-            'url' => $release->html_url,
-            'package' => $release->zipball_url,
+            'url'         => $release->html_url,
+            'package'     => $release->zipball_url,
         ];
     }
 
     return $transient;
 }
 
-// Fixes theme extraction from GitHub ZIP
+// Fix GitHub ZIP folder name mismatch
 add_filter('upgrader_source_selection', 'advancedcare_github_theme_source_selection', 10, 3);
 function advancedcare_github_theme_source_selection($source, $remote_source, $upgrader) {
     global $wp_filesystem;
     $theme_slug = 'advancedcare';
+
     if (strpos($source, "$theme_slug") !== false) {
         $corrected_source = trailingslashit($remote_source) . $theme_slug;
         $wp_filesystem->move($source, $corrected_source);
         return $corrected_source;
     }
+
     return $source;
 }
