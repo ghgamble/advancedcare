@@ -4,9 +4,22 @@ add_filter('pre_set_site_transient_update_themes', 'advancedcare_github_theme_up
 function advancedcare_github_theme_update($transient) {
     $theme_slug = 'advancedcare';
     $repo_owner = 'ghgamble';
-    $repo_name = 'advancedcare';
+    $repo_name  = 'advancedcare';
 
-    $response = wp_remote_get("https://api.github.com/repos/$repo_owner/$repo_name/releases/latest");
+    $headers = [
+        'User-Agent' => 'AdvancedCare-Updater'
+    ];
+
+    // Optional: use GitHub token if defined
+    if (defined('GITHUB_TOKEN') && GITHUB_TOKEN) {
+        $headers['Authorization'] = 'token ' . GITHUB_TOKEN;
+    }
+
+    $response = wp_remote_get(
+        "https://api.github.com/repos/$repo_owner/$repo_name/releases/latest",
+        ['headers' => $headers]
+    );
+
     if (is_wp_error($response)) return $transient;
 
     $release = json_decode(wp_remote_retrieve_body($response));
