@@ -51,17 +51,17 @@ jobs:
           VERSION=$(grep -i 'Version:' release/advancedcare/style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # Final clean zip of theme contents (NO nested folder, NO macOS trash)
-      - name: Create theme zip
+      # Create WP Engine-safe zip using bsdtar
+      - name: Create theme zip (bsdtar)
         run: |
           cd release/advancedcare
-          zip -r ../../advancedcare.zip . -x "*.DS_Store" -x "__MACOSX/*" -x "*/__MACOSX/*"
+          bsdtar -cf ../../advancedcare.zip .
 
-      # Optional: Test zip integrity
-      - name: Verify zip integrity
+      # Verify zip integrity (sanity check)
+      - name: Verify zip
         run: unzip -t advancedcare.zip
 
-      # Upload release to GitHub
+      # Upload to GitHub release
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
