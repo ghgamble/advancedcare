@@ -48,17 +48,3 @@ function advancedcare_github_theme_update($transient) {
 
     return $transient;
 }
-
-add_filter('upgrader_source_selection', 'advancedcare_github_theme_source_selection', 10, 3);
-function advancedcare_github_theme_source_selection($source, $remote_source, $upgrader) {
-    global $wp_filesystem;
-    $theme_slug = 'advancedcare';
-
-    if (strpos($source, $theme_slug) !== false) {
-        $corrected_source = trailingslashit($remote_source) . $theme_slug;
-        $wp_filesystem->move($source, $corrected_source);
-        return $corrected_source;
-    }
-
-    return $source;
-}
