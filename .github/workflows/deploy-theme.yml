@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Check out repo
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -24,25 +24,31 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run build
+      - name: Build theme
         run: npm run build
 
-      # ✅ Grab version from style.css
       - name: Get theme version
         id: get_version
         run: |
           VERSION=$(grep -i 'Version:' style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # ✅ Create zip of theme root (NO parent folder!)
+      # ✅ This is the part that matters — no subfolder nesting!
       - name: Create theme zip
         run: |
-          zip -r advancedcare.zip . -x "*.git*" -x "*.github*" -x "node_modules/*" -x "release/*" -x "*.zip" -x "*.log" -x "*.DS_Store" -x "__MACOSX/*"
+          zip -r advancedcare.zip . \
+            -x "*.git*" \
+            -x ".github/*" \
+            -x "node_modules/*" \
+            -x "release/*" \
+            -x "*.log" \
+            -x "*.DS_Store" \
+            -x "__MACOSX/*"
 
       - name: Verify zip integrity
         run: unzip -t advancedcare.zip
 
-      - name: Upload to GitHub release
+      - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
