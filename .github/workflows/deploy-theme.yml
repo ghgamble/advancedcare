@@ -27,22 +27,29 @@ jobs:
       - name: Build theme
         run: npm run build
 
-      - name: Get theme version
+      - name: Get theme version from style.css
         id: get_version
         run: |
           VERSION=$(grep -i 'Version:' style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # ✅ CLEAN ZIP PROCESS
-      - name: Create clean theme zip
+      # ✅ Clean, cross-host safe zip build
+      - name: Create clean WP Engine–safe zip
         run: |
           mkdir final
           rsync -av --exclude=".git*" --exclude=".github" --exclude="node_modules" \
             --exclude="*.zip" --exclude="*.log" --exclude="*.DS_Store" --exclude="__MACOSX" \
             ./ final/
           cd final
+
+          # Remove extended macOS attributes that can break unzip on WP Engine
+          xattr -rc .
+
+          # Normalize permissions (folders 755, files 644)
           find . -type d -exec chmod 755 {} \;
           find . -type f -exec chmod 644 {} \;
+
+          # Only zip real files (no empty dirs or junk)
           find . -type f > filelist.txt
           zip -@ ../advancedcare.zip < filelist.txt
 
@@ -52,5 +59,4 @@ jobs:
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.get_version.outputs.version }}
-          files: advancedcare.zip
+          tag_name: v${{ steps.get_version.outputs
