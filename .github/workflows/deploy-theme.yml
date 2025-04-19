@@ -11,58 +11,38 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Install and build
-      - run: npm install
-      - run: npm run build
+      - name: Install dependencies
+        run: npm install
 
-      # Prepare release folder without nesting theme folder
-      - name: Prepare release files
-        run: |
-          mkdir -p release
-          rsync -av --delete \
-            --exclude='.git*' \
-            --exclude='.github' \
-            --exclude='node_modules' \
-            --exclude='release' \
-            --exclude='*.zip' \
-            --exclude='*.log' \
-            --exclude='*.DS_Store' \
-            --exclude='__MACOSX' \
-            ./ release/
+      - name: Run build
+        run: npm run build
 
-      # Normalize permissions for WordPress compatibility
-      - name: Normalize permissions
-        run: |
-          cd release
-          find . -type d -exec chmod 755 {} \;
-          find . -type f -exec chmod 644 {} \;
-
-      # Extract theme version from style.css
+      # ✅ Grab version from style.css
       - name: Get theme version
         id: get_version
         run: |
-          VERSION=$(grep -i 'Version:' release/style.css | awk '{ print $2 }')
+          VERSION=$(grep -i 'Version:' style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # Zip ONLY the theme contents (no parent folder)
+      # ✅ Create zip of theme root (NO parent folder!)
       - name: Create theme zip
         run: |
-          cd release
-          zip -r ../advancedcare.zip . -x "*.DS_Store" -x "__MACOSX/*"
+          zip -r advancedcare.zip . -x "*.git*" -x "*.github*" -x "node_modules/*" -x "release/*" -x "*.zip" -x "*.log" -x "*.DS_Store" -x "__MACOSX/*"
 
-      # Optional: Verify zip
       - name: Verify zip integrity
         run: unzip -t advancedcare.zip
 
-      # Upload release
-      - name: Create GitHub release
+      - name: Upload to GitHub release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
