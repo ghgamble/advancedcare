@@ -41,13 +41,13 @@ jobs:
           # ✅ Create target folder
           mkdir -p final/advancedcare
 
-          # ✅ Copy all files, excluding junk and previous builds
+          # ✅ Copy all files into the correct structure
           rsync -av --exclude=".git*" --exclude=".github" --exclude="node_modules" \
             --exclude="*.zip" --exclude="*.log" --exclude="*.DS_Store" --exclude="__MACOSX" \
             --exclude="final" \
             ./ final/advancedcare
 
-          # ✅ Overwrite style.css in case rsync skipped it
+          # ✅ Force copy style.css in case rsync skipped it
           cp style.css final/advancedcare/style.css
 
           # ✅ Normalize permissions
@@ -55,10 +55,9 @@ jobs:
           find . -type d -exec chmod 755 {} \;
           find . -type f -exec chmod 644 {} \;
 
-          # ✅ Create zip using version in filename
+          # ✅ Create versioned zip one level up
           cd ..
           zip -r advancedcare-v${{ steps.get_version.outputs.version }}.zip final/advancedcare
-          mv advancedcare-v${{ steps.get_version.outputs.version }}.zip advancedcare-v${{ steps.get_version.outputs.version }}.zip
 
       - name: Verify zip integrity
         run: unzip -t advancedcare-v${{ steps.get_version.outputs.version }}.zip
