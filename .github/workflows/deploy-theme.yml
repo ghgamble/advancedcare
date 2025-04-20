@@ -36,6 +36,10 @@ jobs:
       - name: Create clean WP Engine–safe zip
         run: |
           mkdir -p final/advancedcare
+
+          # ✅ Force include style.css in case it's skipped or overwritten
+          cp style.css final/advancedcare/style.css
+
           rsync -av --exclude=".git*" --exclude=".github" --exclude="node_modules" \
             --exclude="*.zip" --exclude="*.log" --exclude="*.DS_Store" --exclude="__MACOSX" \
             ./ final/advancedcare
@@ -46,7 +50,7 @@ jobs:
           find . -type d -exec chmod 755 {} \;
           find . -type f -exec chmod 644 {} \;
 
-          # Create zip with top-level "advancedcare/" folder
+          # Create ZIP from top-level folder
           zip -r ../advancedcare.zip advancedcare
 
       - name: Verify zip integrity
