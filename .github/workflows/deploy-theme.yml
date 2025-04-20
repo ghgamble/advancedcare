@@ -33,24 +33,29 @@ jobs:
           VERSION=$(grep -i 'Version:' style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Create clean WP Engine–safe zip
+      - name: Package theme and create release zip
         run: |
+          # 🔥 Clean up previous build artifacts
+          rm -rf final advancedcare.zip
+
+          # ✅ Create target folder
           mkdir -p final/advancedcare
 
-          # ✅ Force include style.css in case it's skipped or overwritten
-          cp style.css final/advancedcare/style.css
-
+          # ✅ Copy everything (excluding problematic stuff) into the zip folder
           rsync -av --exclude=".git*" --exclude=".github" --exclude="node_modules" \
             --exclude="*.zip" --exclude="*.log" --exclude="*.DS_Store" --exclude="__MACOSX" \
+            --exclude="final" \
             ./ final/advancedcare
 
-          cd final
+          # ✅ Force overwrite style.css to make sure it's there
+          cp style.css final/advancedcare/style.css
 
-          # Normalize permissions
+          # ✅ Normalize permissions
+          cd final
           find . -type d -exec chmod 755 {} \;
           find . -type f -exec chmod 644 {} \;
 
-          # Create ZIP from top-level folder
+          # ✅ Create the final zip
           zip -r ../advancedcare.zip advancedcare
 
       - name: Verify zip integrity
