@@ -33,7 +33,6 @@ function advancedcare_github_theme_update($transient) {
     if (empty($release) || empty($release->tag_name)) return $transient;
 
     $new_version = str_replace('v', '', $release->tag_name);
-
     $theme = wp_get_theme($theme_slug);
     $current_version = $theme->get('Version');
 
@@ -42,7 +41,7 @@ function advancedcare_github_theme_update($transient) {
             'theme'       => $theme_slug,
             'new_version' => $new_version,
             'url'         => $release->html_url,
-            'package'     => "https://github.com/$repo_owner/$repo_name/releases/download/{$release->tag_name}/advancedcare.zip",
+            'package'     => "https://github.com/$repo_owner/$repo_name/releases/download/{$release->tag_name}/advancedcare-v{$new_version}.zip",
         ];
     }
 

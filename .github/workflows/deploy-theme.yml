@@ -33,21 +33,21 @@ jobs:
           VERSION=$(grep -i 'Version:' style.css | awk '{ print $2 }')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Package theme and create release zip
+      - name: Package theme and create versioned release zip
         run: |
           # 🔥 Clean up previous build artifacts
-          rm -rf final advancedcare.zip
+          rm -rf final *.zip
 
           # ✅ Create target folder
           mkdir -p final/advancedcare
 
-          # ✅ Copy everything (excluding problematic stuff) into the zip folder
+          # ✅ Copy all files, excluding junk and previous builds
           rsync -av --exclude=".git*" --exclude=".github" --exclude="node_modules" \
             --exclude="*.zip" --exclude="*.log" --exclude="*.DS_Store" --exclude="__MACOSX" \
             --exclude="final" \
             ./ final/advancedcare
 
-          # ✅ Force overwrite style.css to make sure it's there
+          # ✅ Overwrite style.css in case rsync skipped it
           cp style.css final/advancedcare/style.css
 
           # ✅ Normalize permissions
@@ -55,14 +55,16 @@ jobs:
           find . -type d -exec chmod 755 {} \;
           find . -type f -exec chmod 644 {} \;
 
-          # ✅ Create the final zip
-          zip -r ../advancedcare.zip advancedcare
+          # ✅ Create zip using version in filename
+          cd ..
+          zip -r advancedcare-v${{ steps.get_version.outputs.version }}.zip final/advancedcare
+          mv advancedcare-v${{ steps.get_version.outputs.version }}.zip advancedcare-v${{ steps.get_version.outputs.version }}.zip
 
       - name: Verify zip integrity
-        run: unzip -t advancedcare.zip
+        run: unzip -t advancedcare-v${{ steps.get_version.outputs.version }}.zip
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.get_version.outputs.version }}
-          files: advancedcare.zip
+          files: advancedcare-v${{ steps.get_version.outputs.version }}.zip
