@@ -203,7 +203,7 @@ function advancedcare_customizer_styles() {
 
     <?php if (get_theme_mod('advancedcare_dark_mode')) : ?>
     body { background: #121212; color: #e0e0e0; }
-    .site-header, .site-footer { background: #1f1f1f; }
+    .site-header, .site-footer { background: #1c1c1c; }
     a { color: #bb86fc; }
     a:hover { color: #3700b3; }
     <?php endif; ?>
