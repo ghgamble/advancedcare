@@ -32,7 +32,17 @@ function advancedcare_enqueue_google_fonts() {
     $heading_weight = get_theme_mod('advancedcare_heading_font_weight', '700');
 
     $custom_css = "
-        body, p, li, a, .img-label, .wp-block-button__link.wp-element-button, span {
+        body, p, li, a, .img-label, .wp-block-button__link.wp-element-button {
+            font-family: {$body_font};
+            font-weight: {$body_weight};
+        }
+        
+        .site-main span,
+        .site-main p,
+        .site-main li,
+        .site-main a,
+        .site-main .img-label,
+        .site-main .wp-block-button__link.wp-element-button {
             font-family: {$body_font};
             font-weight: {$body_weight};
         }
