@@ -18,33 +18,16 @@ function advancedcare_scripts() {
 }
 add_action('wp_enqueue_scripts', 'advancedcare_scripts');
 
-// Enqueue Google Fonts and apply Customizer typography settings
+// Enqueue Google Fonts and apply to frontend
 function advancedcare_enqueue_google_fonts() {
-    // Enqueue Google Fonts
     wp_enqueue_style(
         'google-fonts',
         'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&display=swap',
-        [],
-        null
+        false
     );
 
-    // Font map (label → stack)
-    $fonts_map = [
-        'Arial' => "'Arial', sans-serif",
-        'Georgia' => "'Georgia', serif",
-        'Helvetica' => "'Helvetica', sans-serif",
-        'Times New Roman' => "'Times New Roman', serif",
-        'Verdana' => "'Verdana', sans-serif",
-        'Roboto' => "'Roboto', sans-serif",
-        'Nunito Sans' => "'Nunito Sans', sans-serif",
-        'Cormorant Garamond' => "'Cormorant Garamond', serif",
-    ];
-
-    $body_key = get_theme_mod('advancedcare_font_family', 'Nunito Sans');
-    $heading_key = get_theme_mod('advancedcare_heading_font_family', 'Cormorant Garamond');
-
-    $body_font = isset($fonts_map[$body_key]) ? $fonts_map[$body_key] : "'Nunito Sans', sans-serif";
-    $heading_font = isset($fonts_map[$heading_key]) ? $fonts_map[$heading_key] : "'Cormorant Garamond', serif";
+    $body_font = "'Nunito Sans', sans-serif";
+    $heading_font = "'Cormorant Garamond', serif";
     $body_weight = get_theme_mod('advancedcare_font_weight', '400');
     $heading_weight = get_theme_mod('advancedcare_heading_font_weight', '700');
 
@@ -53,15 +36,60 @@ function advancedcare_enqueue_google_fonts() {
             font-family: {$body_font};
             font-weight: {$body_weight};
         }
+
         h1, h2, h3, h4, h5, h6 {
             font-family: {$heading_font};
             font-weight: {$heading_weight};
+        }
+
+        .wp-block {
+            font-family: {$body_font};
+        }
+
+        .wp-block-heading {
+            font-family: {$heading_font};
         }
     ";
     wp_add_inline_style('advancedcare-style', $custom_css);
 }
 add_action('wp_enqueue_scripts', 'advancedcare_enqueue_google_fonts');
-add_action('enqueue_block_editor_assets', 'advancedcare_enqueue_google_fonts');
+
+// Apply fonts in Gutenberg block editor
+function advancedcare_editor_fonts() {
+    wp_enqueue_style(
+        'google-fonts-editor',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&display=swap',
+        false
+    );
+
+    $body_font = "'Nunito Sans', sans-serif";
+    $heading_font = "'Cormorant Garamond', serif";
+
+    $editor_css = "
+        body, .editor-styles-wrapper {
+            font-family: {$body_font} !important;
+        }
+
+        .editor-styles-wrapper h1,
+        .editor-styles-wrapper h2,
+        .editor-styles-wrapper h3,
+        .editor-styles-wrapper h4,
+        .editor-styles-wrapper h5,
+        .editor-styles-wrapper h6 {
+            font-family: {$heading_font} !important;
+        }
+
+        .wp-block {
+            font-family: {$body_font} !important;
+        }
+
+        .wp-block-heading {
+            font-family: {$heading_font} !important;
+        }
+    ";
+    wp_add_inline_style('wp-edit-blocks', $editor_css);
+}
+add_action('enqueue_block_editor_assets', 'advancedcare_editor_fonts');
 
 // Enqueue Button Styles for Block Editor
 add_action('enqueue_block_editor_assets', function () {
