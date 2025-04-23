@@ -32,7 +32,7 @@ function advancedcare_enqueue_google_fonts() {
     $heading_weight = get_theme_mod('advancedcare_heading_font_weight', '700');
 
     $custom_css = "
-        body, p {
+        body, p, li, a {
             font-family: {$body_font};
             font-weight: {$body_weight};
         }
