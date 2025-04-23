@@ -18,28 +18,28 @@ function advancedcare_scripts() {
 }
 add_action('wp_enqueue_scripts', 'advancedcare_scripts');
 
-// Enqueue Google Fonts and apply Customizer fallbacks
+// Enqueue Google Fonts and apply Customizer typography settings
 function advancedcare_enqueue_google_fonts() {
     wp_enqueue_style(
         'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Arial&family=Georgia&family=Helvetica&family=Times+New+Roman&family=Verdana&family=Roboto:wght@300;400;500;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&family=Arial&family=Georgia&family=Helvetica&family=Times+New+Roman&family=Verdana&family=Roboto:wght@300;400;500;700&display=swap',
         false
     );
 
-    $body_font = get_theme_mod('advancedcare_font_family', 'Roboto, sans-serif');
-    $heading_font = get_theme_mod('advancedcare_heading_font_family', 'Arial, sans-serif');
+    $body_font = get_theme_mod('advancedcare_font_family', "'Nunito Sans', sans-serif");
+    $heading_font = get_theme_mod('advancedcare_heading_font_family', "'Cormorant Garamond', serif");
     $body_weight = get_theme_mod('advancedcare_font_weight', '400');
     $heading_weight = get_theme_mod('advancedcare_heading_font_weight', '700');
 
     $custom_css = "
         body, p {
-            font-family: " . esc_attr($body_font) . ";
-            font-weight: " . esc_attr($body_weight) . ";
+            font-family: {$body_font};
+            font-weight: {$body_weight};
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: " . esc_attr($heading_font) . ";
-            font-weight: " . esc_attr($heading_weight) . ";
+            font-family: {$heading_font};
+            font-weight: {$heading_weight};
         }
     ";
     wp_add_inline_style('advancedcare-style', $custom_css);

@@ -29,7 +29,9 @@
         { "fontFamily": "'Helvetica', sans-serif", "slug": "helvetica", "name": "Helvetica" },
         { "fontFamily": "'Times New Roman', serif", "slug": "times", "name": "Times New Roman" },
         { "fontFamily": "'Verdana', sans-serif", "slug": "verdana", "name": "Verdana" },
-        { "fontFamily": "'Roboto', sans-serif", "slug": "roboto", "name": "Roboto" }
+        { "fontFamily": "'Roboto', sans-serif", "slug": "roboto", "name": "Roboto" },
+        { "fontFamily": "'Nunito Sans', sans-serif", "slug": "nunito-sans", "name": "Nunito Sans" },
+        { "fontFamily": "'Cormorant Garamond', serif", "slug": "cormorant-garamond", "name": "Cormorant Garamond" }
       ],
       "fontSizes": [
         { "slug": "xs", "size": "0.75rem", "name": "Extra Small" },
@@ -119,10 +121,39 @@
           "radius": "var(--wp--preset--border--radius--md)"
         }
       },
+      "body": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--nunito-sans)"
+        }
+      },
       "h1": {
         "typography": {
-          "fontSize": "2.5rem",
-          "fontFamily": "var(--wp--preset--font-family--georgia)"
+          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
+        }
+      },
+      "h4": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
+        }
+      },
+      "h5": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
+        }
+      },
+      "h6": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
         }
       }
     }

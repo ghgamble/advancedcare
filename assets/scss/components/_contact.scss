@@ -38,11 +38,26 @@
           outline: none;
         }
       }
-  
+
       // Make third item wrap below if only two fit
       &:has(input:nth-child(3)) {
         justify-content: flex-start;
       }
+    }
+
+    input,
+    textarea,
+    select {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 300;
+      color: #888;
     }
   
     textarea {

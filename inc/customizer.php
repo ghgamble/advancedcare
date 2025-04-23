@@ -27,11 +27,14 @@ function advancedcare_customize_register($wp_customize) {
 
     // Font choices
     $fonts = [
-        'Arial, sans-serif' => 'Arial',
-        'Georgia, serif' => 'Georgia',
-        'Helvetica, sans-serif' => 'Helvetica',
-        'Times New Roman, serif' => 'Times New Roman',
-        'Verdana, sans-serif' => 'Verdana',
+        "'Arial', sans-serif" => 'Arial',
+        "'Georgia', serif" => 'Georgia',
+        "'Helvetica', sans-serif" => 'Helvetica',
+        "'Times New Roman', serif" => 'Times New Roman',
+        "'Verdana', sans-serif" => 'Verdana',
+        "'Roboto', sans-serif" => 'Roboto',
+        "'Nunito Sans', sans-serif" => 'Nunito Sans',
+        "'Cormorant Garamond', serif" => 'Cormorant Garamond'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
