@@ -13,6 +13,8 @@
       ],
       "duotone": [],
       "palette": [
+        { "slug": "body-text", "color": "#292b35", "name": "Body Text" },
+        { "slug": "heading-text", "color": "#00629c", "name": "Heading Text" },
         { "slug": "brand", "color": "#5cb9aa", "name": "Brand Green" },
         { "slug": "dark", "color": "#282b35", "name": "Dark Gray" },
         { "slug": "white", "color": "#ffffff", "name": "White" },
@@ -76,12 +78,6 @@
       "contentSize": "800px",
       "wideSize": "1200px"
     },
-    "defaults": {
-      "spacing": {
-        "margin": true,
-        "padding": true
-      }
-    },
     "blocks": {
       "*": {
         "color": {
@@ -107,6 +103,41 @@
       }
     },
     "elements": {
+      "body": {
+        "color": {
+          "text": "var(--wp--preset--color--body-text)"
+        }
+      },
+      "h1": {
+        "color": {
+          "text": "var(--wp--preset--color--heading-text)"
+        }
+      },
+      "h2": {
+        "color": {
+          "text": "var(--wp--preset--color--heading-text)"
+        }
+      },
+      "h3": {
+        "color": {
+          "text": "var(--wp--preset--color--heading-text)"
+        }
+      },
+      "h4": {
+        "color": {
+          "text": "var(--wp--preset--color--heading-text)"
+        }
+      },
+      "h5": {
+        "color": {
+          "text": "var(--wp--preset--color--heading-text)"
+        }
+      },
+      "h6": {
+        "color": {
+          "text": "var(--wp--preset--color--heading-text)"
+        }
+      },
       "link": {
         "color": {
           "text": "var(--wp--preset--color--brand)"
@@ -119,41 +150,6 @@
         },
         "border": {
           "radius": "var(--wp--preset--border--radius--md)"
-        }
-      },
-      "body": {
-        "typography": {
-          "fontFamily": "var(--wp--preset--font-family--nunito-sans)"
-        }
-      },
-      "h1": {
-        "typography": {
-          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
-        }
-      },
-      "h2": {
-        "typography": {
-          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
-        }
-      },
-      "h3": {
-        "typography": {
-          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
-        }
-      },
-      "h4": {
-        "typography": {
-          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
-        }
-      },
-      "h5": {
-        "typography": {
-          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
-        }
-      },
-      "h6": {
-        "typography": {
-          "fontFamily": "var(--wp--preset--font-family--cormorant-garamond)"
         }
       }
     }
