@@ -20,14 +20,31 @@ add_action('wp_enqueue_scripts', 'advancedcare_scripts');
 
 // Enqueue Google Fonts and apply Customizer typography settings
 function advancedcare_enqueue_google_fonts() {
+    // Enqueue Google Fonts
     wp_enqueue_style(
         'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&family=Arial&family=Georgia&family=Helvetica&family=Times+New+Roman&family=Verdana&family=Roboto:wght@300;400;500;700&display=swap',
-        false
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&display=swap',
+        [],
+        null
     );
 
-    $body_font = get_theme_mod('advancedcare_font_family', "'Nunito Sans', sans-serif");
-    $heading_font = get_theme_mod('advancedcare_heading_font_family', "'Cormorant Garamond', serif");
+    // Font map (label → stack)
+    $fonts_map = [
+        'Arial' => "'Arial', sans-serif",
+        'Georgia' => "'Georgia', serif",
+        'Helvetica' => "'Helvetica', sans-serif",
+        'Times New Roman' => "'Times New Roman', serif",
+        'Verdana' => "'Verdana', sans-serif",
+        'Roboto' => "'Roboto', sans-serif",
+        'Nunito Sans' => "'Nunito Sans', sans-serif",
+        'Cormorant Garamond' => "'Cormorant Garamond', serif",
+    ];
+
+    $body_key = get_theme_mod('advancedcare_font_family', 'Nunito Sans');
+    $heading_key = get_theme_mod('advancedcare_heading_font_family', 'Cormorant Garamond');
+
+    $body_font = isset($fonts_map[$body_key]) ? $fonts_map[$body_key] : "'Nunito Sans', sans-serif";
+    $heading_font = isset($fonts_map[$heading_key]) ? $fonts_map[$heading_key] : "'Cormorant Garamond', serif";
     $body_weight = get_theme_mod('advancedcare_font_weight', '400');
     $heading_weight = get_theme_mod('advancedcare_heading_font_weight', '700');
 
@@ -36,7 +53,6 @@ function advancedcare_enqueue_google_fonts() {
             font-family: {$body_font};
             font-weight: {$body_weight};
         }
-
         h1, h2, h3, h4, h5, h6 {
             font-family: {$heading_font};
             font-weight: {$heading_weight};
