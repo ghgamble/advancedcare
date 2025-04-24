@@ -112,6 +112,12 @@ body.scrolled .skip-to-content {
   align-items: center !important;
 }
 
+// Media/text Block
+.wp-block-media-text {
+  row-gap: 0.5rem !important;
+  margin-block-start: 0 !important;
+}
+
 // Layout mobile
 .responsive-four-columns.wp-block-columns {
   display: grid !important;
