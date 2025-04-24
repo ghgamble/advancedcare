@@ -172,6 +172,10 @@ footer {
       margin-bottom: 10px; /* Space between each section */
     }
 
+    .footer-menu {
+      width: 65% !important;
+    }
+
     /* Ensure that the first child doesn't get extra margin */
     .footer-info .footer-address:first-child,
     .footer-info .footer-menu:first-child {
