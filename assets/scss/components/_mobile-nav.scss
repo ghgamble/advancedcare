@@ -17,6 +17,10 @@
     li {
       width: 100%;
       list-style-type: none;
+
+      .submenu-toggle {
+        display: none;
+      }
       
       a {
         color: #ffffff;

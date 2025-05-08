@@ -36,6 +36,10 @@ header.site-header {
 
     li {
       position: relative;
+      
+      .submenu-toggle {
+        display: none;
+      }
 
       a {
         color: #fff;
