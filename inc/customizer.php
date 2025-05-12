@@ -181,7 +181,7 @@ function advancedcare_customizer_styles() {
         font-family: <?php echo esc_attr(get_theme_mod('advancedcare_heading_font_family', 'Arial, sans-serif')); ?>;
         font-weight: <?php echo esc_attr(get_theme_mod('advancedcare_heading_font_weight', 700)); ?>;
     }
-    .site-header {
+    header.site-header {
         background-color: <?php echo esc_attr(get_theme_mod('advancedcare_header_bg', '#282b35')); ?>;
         color: <?php echo esc_attr(get_theme_mod('advancedcare_header_font_color', '#ffffff')); ?>;
     }
