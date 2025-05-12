@@ -90,7 +90,6 @@ function advancedcare_customize_register($wp_customize) {
         'description' => __('E.g., 960px or 90%', 'advancedcare'),
     ]);
 
-    // Dark Mode Toggle (✨ Optional Feature ✨)
     $wp_customize->add_setting('advancedcare_dark_mode', [
         'default' => false,
         'sanitize_callback' => 'rest_sanitize_boolean',
@@ -126,6 +125,16 @@ function advancedcare_customize_register($wp_customize) {
             'section' => 'advancedcare_color_settings',
         ]));
     }
+
+    // Hamburger Icon Color
+    $wp_customize->add_setting('advancedcare_hamburger_icon_color', [
+        'default' => '#ffffff',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'advancedcare_hamburger_icon_color', [
+        'label' => __('Hamburger Icon Color', 'advancedcare'),
+        'section' => 'advancedcare_color_settings',
+    ]));
 
 
     // === ACCESSIBILITY SETTINGS ===
@@ -181,8 +190,10 @@ function advancedcare_customizer_styles() {
         font-family: <?php echo esc_attr(get_theme_mod('advancedcare_heading_font_family', 'Arial, sans-serif')); ?>;
         font-weight: <?php echo esc_attr(get_theme_mod('advancedcare_heading_font_weight', 700)); ?>;
     }
-    header.site-header {
-        background-color: <?php echo esc_attr(get_theme_mod('advancedcare_header_bg', '#282b35')); ?>;
+    header.site-header, div#mobile-primary-menu {
+        background-color: <?php echo esc_attr(get_theme_mod('advancedcare_header_bg', '#282b35')); ?>;        
+    }
+    ul#menu-main-menu li a, div#mobile-primary-menu li a {
         color: <?php echo esc_attr(get_theme_mod('advancedcare_header_font_color', '#ffffff')); ?>;
     }
     .site-footer {
@@ -193,6 +204,9 @@ function advancedcare_customizer_styles() {
     }
     .o-container {
         max-width: <?php echo esc_attr(get_theme_mod('advancedcare_layout_width', '1100px')); ?>;
+    }
+    .menu-toggle .hamburger-icon rect {
+        fill: <?php echo esc_attr(get_theme_mod('advancedcare_hamburger_icon_color', '#ffffff')); ?>;
     }
     <?php if (get_theme_mod('advancedcare_reduce_motion')) : ?>
     html {
