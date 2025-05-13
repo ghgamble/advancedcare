@@ -36,7 +36,8 @@ function advancedcare_customize_register($wp_customize) {
         "'Nunito Sans', sans-serif" => 'Nunito Sans',
         "'Cormorant Garamond', serif" => 'Cormorant Garamond',
         "'IBM Plex Sans Condensed', sans-serif" => 'IBM Plex Sans Condensed',
-        "'PT Sans', sans-serif" => 'PT Sans'
+        "'PT Sans', sans-serif" => 'PT Sans',
+        "'Quicksand', sans-serif" => 'Quicksand'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
