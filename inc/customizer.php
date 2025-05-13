@@ -36,6 +36,7 @@ function advancedcare_customize_register($wp_customize) {
         "'Nunito Sans', sans-serif" => 'Nunito Sans',
         "'Cormorant Garamond', serif" => 'Cormorant Garamond',
         "'IBM Plex Sans Condensed', sans-serif" => 'IBM Plex Sans Condensed',
+        "'PT Sans', sans-serif" => 'PT Sans'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
@@ -216,7 +217,7 @@ function advancedcare_customizer_styles() {
     .site .wp-block-button__link.wp-element-button {
         font-family: <?php echo $body_font; ?> !important;
     }
-    
+
     ul#menu-main-menu li a,
     div#mobile-primary-menu li a {
         font-family: <?php echo $body_font; ?> !important;
