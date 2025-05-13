@@ -34,11 +34,12 @@ function advancedcare_customize_register($wp_customize) {
         "'Verdana', sans-serif" => 'Verdana',
         "'Roboto', sans-serif" => 'Roboto',
         "'Nunito Sans', sans-serif" => 'Nunito Sans',
-        "'Cormorant Garamond', serif" => 'Cormorant Garamond'
+        "'Cormorant Garamond', serif" => 'Cormorant Garamond',
+        "'IBM Plex Sans Condensed', sans-serif" => 'IBM Plex Sans Condensed',
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
-        'default' => 'Roboto, sans-serif',
+        'default' => "'Roboto', sans-serif",
         'sanitize_callback' => 'sanitize_text_field',
     ]);
     $wp_customize->add_control('advancedcare_font_family', [
@@ -49,7 +50,7 @@ function advancedcare_customize_register($wp_customize) {
     ]);
 
     $wp_customize->add_setting('advancedcare_heading_font_family', [
-        'default' => 'Arial, sans-serif',
+        'default' => "'Arial', sans-serif",
         'sanitize_callback' => 'sanitize_text_field',
     ]);
     $wp_customize->add_control('advancedcare_heading_font_family', [
@@ -100,7 +101,6 @@ function advancedcare_customize_register($wp_customize) {
         'type' => 'checkbox',
     ]);
 
-
     // === COLOR SETTINGS ===
     $wp_customize->add_section('advancedcare_color_settings', [
         'title'    => __('Color Settings', 'advancedcare'),
@@ -136,7 +136,6 @@ function advancedcare_customize_register($wp_customize) {
         'section' => 'advancedcare_color_settings',
     ]));
 
-
     // === ACCESSIBILITY SETTINGS ===
     $wp_customize->add_section('advancedcare_accessibility', [
         'title' => __('Accessibility Settings', 'advancedcare'),
@@ -171,43 +170,95 @@ function advancedcare_customize_register($wp_customize) {
 }
 add_action('customize_register', 'advancedcare_customize_register');
 
-
 /**
  * Output the Customizer styles in the <head>
  */
 function advancedcare_customizer_styles() {
+    $body_font = get_theme_mod('advancedcare_font_family', "'Roboto', sans-serif");
+    $heading_font = get_theme_mod('advancedcare_heading_font_family', "'Arial', sans-serif");
+    $body_weight = get_theme_mod('advancedcare_font_weight', 400);
+    $heading_weight = get_theme_mod('advancedcare_heading_font_weight', 700);
+    $font_scale = get_theme_mod('advancedcare_font_scale', 1);
 ?>
 <style type="text/css">
     :root {
-        font-size: calc(1rem * <?php echo esc_attr(get_theme_mod('advancedcare_font_scale', 1)); ?>);
+        font-size: calc(1rem * <?php echo $font_scale; ?>);
     }
+
     body {
-        background-color: <?php echo esc_attr(get_theme_mod('advancedcare_body_bg_color', '#ffffff')); ?>;
-        font-family: <?php echo esc_attr(get_theme_mod('advancedcare_font_family', 'Roboto, sans-serif')); ?>;
-        font-weight: <?php echo esc_attr(get_theme_mod('advancedcare_font_weight', 400)); ?>;
+        background-color: <?php echo get_theme_mod('advancedcare_body_bg_color', '#ffffff'); ?>;
+        font-family: <?php echo $body_font; ?> !important;
+        font-weight: <?php echo $body_weight; ?>;
     }
+
+    /* Headings */
     h1, h2, h3, h4, h5, h6 {
-        font-family: <?php echo esc_attr(get_theme_mod('advancedcare_heading_font_family', 'Arial, sans-serif')); ?>;
-        font-weight: <?php echo esc_attr(get_theme_mod('advancedcare_heading_font_weight', 700)); ?>;
+        font-family: <?php echo $heading_font; ?> !important;
+        font-weight: <?php echo $heading_weight; ?>;
     }
+
+    .wp-block-heading {
+        font-family: <?php echo $heading_font; ?> !important;
+    }
+
+    .site p,
+    .site li,
+    .site a,
+    .site span,
+    .site div,
+    .site input,
+    .site textarea,
+    .site select,
+    .site button,
+    .site .wpcf7-form-control,
+    .site .wp-block,
+    .site .wp-block-paragraph,
+    .site .wp-block-button__link.wp-element-button {
+        font-family: <?php echo $body_font; ?> !important;
+    }
+    
+    ul#menu-main-menu li a,
+    div#mobile-primary-menu li a {
+        font-family: <?php echo $body_font; ?> !important;
+    }
+
+    .site-footer,
+    .site-footer p,
+    .site-footer li,
+    .site-footer a,
+    .site-footer h1,
+    .site-footer h2,
+    .site-footer h3,
+    .site-footer h4,
+    .site-footer h5,
+    .site-footer h6 {
+        font-family: <?php echo $body_font; ?> !important;
+    }
+
     header.site-header, div#mobile-primary-menu {
-        background-color: <?php echo esc_attr(get_theme_mod('advancedcare_header_bg', '#282b35')); ?>;        
+        background-color: <?php echo get_theme_mod('advancedcare_header_bg', '#282b35'); ?>;
     }
+
     ul#menu-main-menu li a, div#mobile-primary-menu li a {
-        color: <?php echo esc_attr(get_theme_mod('advancedcare_header_font_color', '#ffffff')); ?>;
+        color: <?php echo get_theme_mod('advancedcare_header_font_color', '#ffffff'); ?>;
     }
+
     .site-footer {
-        background-color: <?php echo esc_attr(get_theme_mod('advancedcare_footer_bg', '#282b35')); ?>;
+        background-color: <?php echo get_theme_mod('advancedcare_footer_bg', '#282b35'); ?>;
     }
+
     a:hover {
-        color: <?php echo esc_attr(get_theme_mod('advancedcare_link_hover_color', '#03678e')); ?>;
+        color: <?php echo get_theme_mod('advancedcare_link_hover_color', '#03678e'); ?>;
     }
+
     .o-container {
-        max-width: <?php echo esc_attr(get_theme_mod('advancedcare_layout_width', '1100px')); ?>;
+        max-width: <?php echo get_theme_mod('advancedcare_layout_width', '1100px'); ?>;
     }
+
     .menu-toggle .hamburger-icon rect {
-        fill: <?php echo esc_attr(get_theme_mod('advancedcare_hamburger_icon_color', '#ffffff')); ?>;
+        fill: <?php echo get_theme_mod('advancedcare_hamburger_icon_color', '#ffffff'); ?>;
     }
+
     <?php if (get_theme_mod('advancedcare_reduce_motion')) : ?>
     html {
         scroll-behavior: auto !important;

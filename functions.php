@@ -22,7 +22,7 @@ add_action('wp_enqueue_scripts', 'advancedcare_scripts');
 function advancedcare_enqueue_google_fonts() {
     wp_enqueue_style(
         'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&family=IBM+Plex+Sans+Condensed:wght@300;400;600;700&display=swap',
         false
     );
 
@@ -36,7 +36,7 @@ function advancedcare_enqueue_google_fonts() {
             font-family: {$body_font};
             font-weight: {$body_weight};
         }
-        
+
         .site-main span,
         .site-main p,
         .site-main li,
@@ -68,7 +68,7 @@ add_action('wp_enqueue_scripts', 'advancedcare_enqueue_google_fonts');
 function advancedcare_editor_fonts() {
     wp_enqueue_style(
         'google-fonts-editor',
-        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Nunito+Sans:wght@300;400;600;700&family=IBM+Plex+Sans+Condensed:wght@300;400;600;700&display=swap',
         false
     );
 
