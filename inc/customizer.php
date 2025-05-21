@@ -128,6 +128,23 @@ function advancedcare_customize_register($wp_customize) {
         ]));
     }
 
+    // === CAREER PAGE STYLING ===
+    $wp_customize->add_section('advancedcare_career_page', [
+        'title'    => __('Career Page', 'advancedcare'),
+        'priority' => 36,
+    ]);
+
+    $wp_customize->add_setting('advancedcare_career_accent_color', [
+        'default'           => '#03678e',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ]);
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'advancedcare_career_accent_color', [
+        'label'   => __('Career Page Color Pattern', 'advancedcare'),
+        'section' => 'advancedcare_career_page',
+    ]));
+
+
     // Hamburger Icon Color
     $wp_customize->add_setting('advancedcare_hamburger_icon_color', [
         'default' => '#ffffff',
@@ -259,6 +276,15 @@ function advancedcare_customizer_styles() {
 
     .menu-toggle .hamburger-icon rect {
         fill: <?php echo get_theme_mod('advancedcare_hamburger_icon_color', '#ffffff'); ?>;
+    }
+
+    div#career-block .apploi-drop-down select#job-title-filter {
+        background-color: <?php echo get_theme_mod('advancedcare_career_accent_color', '#03678e'); ?> !important;
+        border: 1px solid <?php echo get_theme_mod('advancedcare_career_accent_color', '#03678e'); ?> !important;
+    }
+
+    a.job-link {
+        color: <?php echo get_theme_mod('advancedcare_career_accent_color', '#03678e'); ?> !important;
     }
 
     <?php if (get_theme_mod('advancedcare_reduce_motion')) : ?>
