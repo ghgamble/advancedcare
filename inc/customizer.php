@@ -37,7 +37,8 @@ function advancedcare_customize_register($wp_customize) {
         "'Cormorant Garamond', serif" => 'Cormorant Garamond',
         "'IBM Plex Sans Condensed', sans-serif" => 'IBM Plex Sans Condensed',
         "'PT Sans', sans-serif" => 'PT Sans',
-        "'Quicksand', sans-serif" => 'Quicksand'
+        "'Quicksand', sans-serif" => 'Quicksand',
+        "'M PLUS Rounded 1c', sans-serif" => 'M PLUS Rounded 1c'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
