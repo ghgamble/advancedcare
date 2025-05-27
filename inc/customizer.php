@@ -38,7 +38,8 @@ function advancedcare_customize_register($wp_customize) {
         "'IBM Plex Sans Condensed', sans-serif" => 'IBM Plex Sans Condensed',
         "'PT Sans', sans-serif" => 'PT Sans',
         "'Quicksand', sans-serif" => 'Quicksand',
-        "'M PLUS Rounded 1c', sans-serif" => 'M PLUS Rounded 1c'
+        "'M PLUS Rounded 1c', sans-serif" => 'M PLUS Rounded 1c',
+        "'Domine', serif" => 'Domine'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
