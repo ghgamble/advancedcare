@@ -40,7 +40,8 @@ function advancedcare_customize_register($wp_customize) {
         "'Quicksand', sans-serif" => 'Quicksand',
         "'M PLUS Rounded 1c', sans-serif" => 'M PLUS Rounded 1c',
         "'Domine', serif" => 'Domine',
-        "'Fira Sans Condensed', sans-serif" => 'Fira Sans Condensed'
+        "'Fira Sans Condensed', sans-serif" => 'Fira Sans Condensed',
+        "'Fraunces', serif" => 'Fraunces'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
