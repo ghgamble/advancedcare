@@ -42,7 +42,8 @@ function advancedcare_customize_register($wp_customize) {
         "'Domine', serif" => 'Domine',
         "'Fira Sans Condensed', sans-serif" => 'Fira Sans Condensed',
         "'Fraunces', serif" => 'Fraunces',
-        "'Barlow Condensed', sans-serif" => 'Barlow Condensed'
+        "'Barlow Condensed', sans-serif" => 'Barlow Condensed',
+        "'Crimson Pro', serif" => 'Crimson Pro'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
