@@ -41,7 +41,8 @@ function advancedcare_customize_register($wp_customize) {
         "'M PLUS Rounded 1c', sans-serif" => 'M PLUS Rounded 1c',
         "'Domine', serif" => 'Domine',
         "'Fira Sans Condensed', sans-serif" => 'Fira Sans Condensed',
-        "'Fraunces', serif" => 'Fraunces'
+        "'Fraunces', serif" => 'Fraunces',
+        "'Barlow Condensed', sans-serif" => 'Barlow Condensed'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [

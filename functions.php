@@ -22,7 +22,7 @@ add_action('wp_enqueue_scripts', 'advancedcare_scripts');
 function advancedcare_enqueue_google_fonts() {
     wp_enqueue_style(
         'google-fonts',
-        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Domine:wght@400;700&family=Nunito+Sans:wght@300;400;600;700&family=IBM+Plex+Sans+Condensed:wght@300;400;600;700&family=PT+Sans:wght@400;700&family=Quicksand:wght@300;400;600;700&family=Fira+Sans+Condensed:wght@300;400;500;600;700&family=Fraunces:wght@400;500;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700&family=Cormorant+Garamond:wght@400;500;700&family=Domine:wght@400;700&family=Nunito+Sans:wght@300;400;600;700&family=IBM+Plex+Sans+Condensed:wght@300;400;600;700&family=PT+Sans:wght@400;700&family=Quicksand:wght@300;400;600;700&family=Fira+Sans+Condensed:wght@300;400;500;600;700&family=Fraunces:wght@400;500;700&display=swap',
         false
     );
 
@@ -68,7 +68,7 @@ add_action('wp_enqueue_scripts', 'advancedcare_enqueue_google_fonts');
 function advancedcare_editor_fonts() {
     wp_enqueue_style(
         'google-fonts-editor',
-        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Domine:wght@400;700&family=Nunito+Sans:wght@300;400;600;700&family=IBM+Plex+Sans+Condensed:wght@300;400;600;700&family=PT+Sans:wght@400;700&family=Quicksand:wght@300;400;600;700&family=Fira+Sans+Condensed:wght@300;400;500;600;700&family=Fraunces:wght@400;500;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700&family=Cormorant+Garamond:wght@400;500;700&family=Domine:wght@400;700&family=Nunito+Sans:wght@300;400;600;700&family=IBM+Plex+Sans+Condensed:wght@300;400;600;700&family=PT+Sans:wght@400;700&family=Quicksand:wght@300;400;600;700&family=Fira+Sans+Condensed:wght@300;400;500;600;700&family=Fraunces:wght@400;500;700&display=swap',
         false
     );
 
