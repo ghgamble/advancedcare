@@ -46,7 +46,8 @@ function advancedcare_customize_register($wp_customize) {
         "'Barlow', sans-serif" => 'Barlow',
         "'Crimson Pro', serif" => 'Crimson Pro',
         "'Poppins', sans-serif" => 'Poppins',
-        "'Great Vibes', cursive" => 'Great Vibes'
+        "'Great Vibes', cursive" => 'Great Vibes',
+        "'Playfair Display', serif" => 'Playfair Display'
     ];
 
     $wp_customize->add_setting('advancedcare_font_family', [
