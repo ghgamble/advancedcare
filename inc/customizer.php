@@ -43,6 +43,7 @@ function advancedcare_customize_register($wp_customize) {
         "'Fira Sans Condensed', sans-serif" => 'Fira Sans Condensed',
         "'Fraunces', serif" => 'Fraunces',
         "'Barlow Condensed', sans-serif" => 'Barlow Condensed',
+        "'Barlow', sans-serif" => 'Barlow',
         "'Crimson Pro', serif" => 'Crimson Pro',
         "'Poppins', sans-serif" => 'Poppins'
     ];
