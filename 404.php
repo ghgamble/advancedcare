@@ -9,7 +9,7 @@
             It may have been moved, or perhaps the address was typed incorrectly.
         </p>
         <a href="<?php echo esc_url(home_url('/')); ?>" 
-           style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background-color: #4b9e46; color: #fff; text-decoration: none; border-radius: 4px; font-size: 1rem;">
+           style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background-color: #fff; border: 2px solid #000; color: #000; text-decoration: none; border-radius: 4px; font-size: 1rem;">
             Back to Home
         </a>
     </div>
